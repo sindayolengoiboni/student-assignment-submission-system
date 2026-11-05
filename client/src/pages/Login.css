@@ -62,3 +62,20 @@
   background: #fffaf5;
   color: #4a2c1a;
 }
+.success {
+  color: #15803d;
+  margin: 0;
+}
+
+.switch {
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.login-box button.link {
+  background: none;
+  color: #c2410c;
+  padding: 0;
+  text-decoration: underline;
+}
