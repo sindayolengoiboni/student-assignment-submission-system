@@ -9,30 +9,64 @@ import "./Student.css";
 export default function StudentPortal() {
   const [activePage, setActivePage] = useState("dashboard");
 
+  const menuItems = [
+    { id: "dashboard", label: "Dashboard", icon: "⌂" },
+    { id: "assignments", label: "Available Assignments", icon: "▤" },
+    { id: "submit", label: "Submit Work", icon: "↑" },
+    { id: "submissions", label: "My Submissions", icon: "◷" },
+  ];
+
+  const pages = {
+    dashboard: <StudentDashboard />,
+    assignments: <AvailableAssignments />,
+    submit: <SubmitAssignment />,
+    submissions: <MySubmissions />,
+  };
+
   return (
-    <div>
-      <nav className="student-nav">
-        <button onClick={() => setActivePage("dashboard")}>
-          Dashboard
-        </button>
+    <div className="portal-layout">
+      <aside className="student-sidebar">
+        <div className="portal-brand">
+          <div className="brand-icon">S</div>
+          <div>
+            <h2>Student Portal</h2>
+            <span>Learning Dashboard</span>
+          </div>
+        </div>
 
-        <button onClick={() => setActivePage("assignments")}>
-          Assignments
-        </button>
+        <p className="nav-heading">MENU</p>
 
-        <button onClick={() => setActivePage("submit")}>
-          Submit Work
-        </button>
+        <nav className="sidebar-menu">
+          {menuItems.map((item) => (
+            <button
+              key={item.id}
+              className={activePage === item.id ? "active" : ""}
+              onClick={() => setActivePage(item.id)}
+            >
+              <span className="menu-icon">{item.icon}</span>
+              {item.label}
+            </button>
+          ))}
+        </nav>
 
-        <button onClick={() => setActivePage("submissions")}>
-          My Submissions
-        </button>
-      </nav>
+        <div className="sidebar-footer">
+          <span>Student Account</span>
+          <p>Assignment Management</p>
+        </div>
+      </aside>
 
-      {activePage === "dashboard" && <StudentDashboard />}
-      {activePage === "assignments" && <AvailableAssignments />}
-      {activePage === "submit" && <SubmitAssignment />}
-      {activePage === "submissions" && <MySubmissions />}
+      <main className="portal-main">
+        <header className="portal-topbar">
+          <div>
+            <span>STUDENT WORKSPACE</span>
+            <h3>My Learning Space</h3>
+          </div>
+          <div className="student-avatar">S</div>
+        </header>
+
+        {pages[activePage]}
+      </main>
     </div>
   );
 }
+
