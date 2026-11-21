@@ -1,9 +1,85 @@
-.lecturer-dashboard { max-width: 800px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; }
-.dashboard-header { text-align: center; color: #333; margin-bottom: 30px; }
-.form-container, .submissions-container { background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-.form-group input, .form-group textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-.submit-btn { background-color: #0056b3; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
-.submit-btn:hover { background-color: #004494; }
-.submission-item { border-bottom: 1px solid #ddd; padding: 10px 0; }
+.lecturer-dashboard {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #fdfcfb;
+}
+
+.dashboard-header {
+  text-align: center;
+  color: #e67e22;
+  margin-bottom: 25px;
+}
+
+.form-container,
+.submissions-container {
+  background: #ffffff;
+  padding: 24px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.form-container h2,
+.submissions-container h2 {
+  color: #e67e22;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #e67e22;
+}
+
+.submit-btn {
+  background-color: #e67e22;
+  color: #ffffff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #cf6d17;
+}
+
+.submission-item {
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+}
+
+.submission-item:last-child {
+  border-bottom: none;
+}
+
+.assignment-desc {
+  margin: 6px 0 0;
+  color: #555;
+}

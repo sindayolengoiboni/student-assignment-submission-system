@@ -16,7 +16,7 @@ export default function App() {
         <button onClick={() => setUser(null)}>Log out</button>
       </div>
 
-      {user.role === "lecturer" && <LecturerDashboard />}
+      {user.role === "lecturer" && <LecturerDashboard user={user} />}
       {user.role === "student" && <p style={{ padding: 16 }}>Student dashboard coming soon.</p>}
       {user.role === "admin" && <p style={{ padding: 16 }}>Admin page coming soon.</p>}
     </div>
