@@ -10,6 +10,8 @@ def create_app():
 
     from app.routes.auth import auth_bp
     app.register_blueprint(auth_bp)
+    from app.routes.lecturer import lecturer_bp
+    app.register_blueprint(lecturer_bp)
 
     @app.route("/")
     def home():
