@@ -1,53 +1,43 @@
-
-import { useState } from "react";
 import "./Student.css";
 
-export default function SubmitAssignment() {
-  const [file, setFile] = useState(null);
-  const [message, setMessage] = useState("");
+// Mock data for now. Later this will come from the backend (GET /submissions).
+const submissions = [
+  {
+    id: 1,
+    title: "Software Engineering Assignment",
+    fileName: "se-assignment.pdf",
+    submittedOn: "15 November 2026",
+    status: "Submitted",
+  },
+  {
+    id: 2,
+    title: "Database Management Coursework",
+    fileName: "dbms-coursework.docx",
+    submittedOn: "18 November 2026",
+    status: "Graded",
+  },
+];
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    if (!file) {
-      setMessage("Please select a file before submitting.");
-      return;
-    }
-
-    setMessage(`Successfully submitted: ${file.name}`);
-    setFile(null);
-    e.target.reset();
-  }
-
+export default function MySubmissions() {
   return (
     <div className="student-dashboard">
-      <h1>Submit Assignment</h1>
-      <p>Upload your completed assignment below.</p>
+      <h1>My Submissions</h1>
+      <p>Track the work you have submitted and its status.</p>
 
-      <form className="student-content" onSubmit={handleSubmit}>
-        <label>Select Assignment</label>
-        <select required>
-          <option value="">Choose an assignment</option>
-          <option value="1">Software Engineering Assignment</option>
-          <option value="2">Database Management Coursework</option>
-        </select>
-
-        <br /><br />
-
-        <label>Upload Your File</label>
-        <input
-          type="file"
-          accept=".pdf,.doc,.docx"
-          onChange={(e) => setFile(e.target.files[0])}
-          required
-        />
-
-        <br /><br />
-
-        <button type="submit">Submit Assignment</button>
-
-        <p>{message}</p>
-      </form>
+      <div className="student-content">
+        {submissions.length === 0 ? (
+          <p>You have not submitted any assignments yet.</p>
+        ) : (
+          submissions.map((sub) => (
+            <div className="student-card" key={sub.id}>
+              <h3>{sub.title}</h3>
+              <p>File: {sub.fileName}</p>
+              <p>Submitted on: {sub.submittedOn}</p>
+              <p>Status: {sub.status}</p>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
