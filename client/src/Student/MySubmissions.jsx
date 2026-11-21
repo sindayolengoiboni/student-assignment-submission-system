@@ -21,7 +21,7 @@ const submissions = [
 export default function MySubmissions() {
   return (
     <div className="student-dashboard">
-      <h1>My Submissions</h2>
+      <h1>My Submissions</h1>
       <p>Track the work you have submitted and its status.</p>
 
       <div className="student-content">
