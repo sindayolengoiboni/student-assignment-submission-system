@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "./Login.css";
 
-export default function Login() {
+const API = "http://127.0.0.1:5000";
+
+export default function Login({ onLogin }) {
   const [isSignUp, setIsSignUp] = useState(false);
   const [role, setRole] = useState("student");
   const [name, setName] = useState("");
@@ -13,11 +15,12 @@ export default function Login() {
 
   function switchMode() {
     setIsSignUp(!isSignUp);
+    setRole("student");
     setError("");
     setMessage("");
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     setMessage("");
 
@@ -39,15 +42,36 @@ export default function Login() {
         setError("Passwords do not match.");
         return;
       }
-      setError("");
-      console.log("Sign up:", role, name, email); // backend comes later
-      setMessage("Account created! You can now log in.");
-      setIsSignUp(false);
-      return;
     }
 
-    setError("");
-    console.log("Login:", role, email); // backend comes later
+    try {
+      const url = isSignUp ? "/api/register" : "/api/login";
+      const body = isSignUp
+        ? { full_name: name, email, password, role }
+        : { email, password };
+
+      const response = await fetch(API + url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Something went wrong.");
+        return;
+      }
+
+      setError("");
+      if (isSignUp) {
+        setMessage("Account created! You can now log in.");
+        setIsSignUp(false);
+      } else {
+        onLogin(data);
+      }
+    } catch (err) {
+      setError("Cannot reach the server. Is it running?");
+    }
   }
 
   return (
@@ -56,11 +80,12 @@ export default function Login() {
         <h1>Student Submission</h1>
         <h2>{isSignUp ? "Create an account" : "Login"}</h2>
 
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value="student">Student</option>
-          <option value="lecturer">Lecturer</option>
-          <option value="admin">Admin</option>
-        </select>
+        {isSignUp && (
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
+            <option value="student">Student</option>
+            <option value="lecturer">Lecturer</option>
+          </select>
+        )}
 
         {isSignUp && (
           <input

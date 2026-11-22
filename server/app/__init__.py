@@ -8,6 +8,11 @@ def create_app():
 
     CORS(app)
 
+    from app.routes.auth import auth_bp
+    app.register_blueprint(auth_bp)
+    from app.routes.lecturer import lecturer_bp
+    app.register_blueprint(lecturer_bp)
+
     @app.route("/")
     def home():
         return {"message": "Student Assignment Submission System API is running"}
