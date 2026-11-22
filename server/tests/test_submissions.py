@@ -40,7 +40,7 @@ def test_submit_rejects_wrong_file_type(client):
 
 
 def test_list_requires_student_id(client):
-    response = client.get("/api/submissions")
+    response = client.get("/api/student/submissions")
     assert response.status_code == 400
 
 

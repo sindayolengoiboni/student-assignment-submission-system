@@ -95,7 +95,7 @@ def submit_assignment():
     ), 201
 
 
-@submissions_bp.route("/submissions", methods=["GET"])
+@submissions_bp.route("/student/submissions", methods=["GET"])
 def list_submissions():
     """List one student's submissions with their status (newest first)."""
     student_id = request.args.get("student_id")
