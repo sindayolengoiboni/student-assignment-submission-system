@@ -17,4 +17,7 @@ def create_app():
     def home():
         return {"message": "Student Assignment Submission System API is running"}
 
+    from app.routes.submissions import submissions_bp
+    app.register_blueprint(submissions_bp)
+
     return app
