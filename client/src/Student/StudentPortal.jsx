@@ -6,8 +6,9 @@ import SubmitAssignment from "./SubmitAssignment";
 import MySubmissions from "./MySubmissions";
 import "./Student.css";
 
-export default function StudentPortal() {
+export default function StudentPortal({ user }) {
   const [activePage, setActivePage] = useState("dashboard");
+  const [selectedAssignmentId, setSelectedAssignmentId] = useState(null);
 
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: "⌂" },
@@ -17,10 +18,26 @@ export default function StudentPortal() {
   ];
 
   const pages = {
-    dashboard: <StudentDashboard />,
-    assignments: <AvailableAssignments />,
-    submit: <SubmitAssignment />,
-    submissions: <MySubmissions />,
+    dashboard: <StudentDashboard user={user} />,
+
+    assignments: (
+      <AvailableAssignments
+        user={user}
+        onSelectAssignment={(id) => {
+          setSelectedAssignmentId(id);
+          setActivePage("submit");
+        }}
+      />
+    ),
+
+    submit: (
+      <SubmitAssignment
+        user={user}
+        selectedAssignmentId={selectedAssignmentId}
+      />
+    ),
+
+    submissions: <MySubmissions user={user} />,
   };
 
   return (
@@ -51,7 +68,7 @@ export default function StudentPortal() {
 
         <div className="sidebar-footer">
           <span>Student Account</span>
-          <p>Assignment Management</p>
+          <p>{user?.full_name || "Student"}</p>
         </div>
       </aside>
 
@@ -59,9 +76,12 @@ export default function StudentPortal() {
         <header className="portal-topbar">
           <div>
             <span>STUDENT WORKSPACE</span>
-            <h3>My Learning Space</h3>
+            <h3>Welcome, {user?.full_name || "Student"}</h3>
           </div>
-          <div className="student-avatar">S</div>
+
+          <div className="student-avatar">
+            {user?.full_name?.charAt(0).toUpperCase() || "S"}
+          </div>
         </header>
 
         {pages[activePage]}
@@ -69,4 +89,3 @@ export default function StudentPortal() {
     </div>
   );
 }
-
