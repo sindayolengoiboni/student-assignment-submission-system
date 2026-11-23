@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Login from "./pages/Login";
 import LecturerDashboard from "./components/lecturer/LecturerDashboard";
+import StudentPortal from "./Student/StudentPortal";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -17,7 +18,7 @@ export default function App() {
       </div>
 
       {user.role === "lecturer" && <LecturerDashboard user={user} />}
-      {user.role === "student" && <p style={{ padding: 16 }}>Student dashboard coming soon.</p>}
+      {user.role === "student" && <StudentPortal user={user} />}
       {user.role === "admin" && <p style={{ padding: 16 }}>Admin page coming soon.</p>}
     </div>
   );
