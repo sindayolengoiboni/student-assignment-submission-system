@@ -1,81 +1,141 @@
+
+/* Login and Sign-up Page */
 .login-page {
   min-height: 100vh;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+  box-sizing: border-box;
   background: #fff1e0;
 }
 
+/* Main Form Container */
 .login-box {
-  width: 300px;
-  padding: 24px;
-  background: white;
+  width: 100%;
+  max-width: 440px;
+  padding: 40px;
+  box-sizing: border-box;
+  background: #ffffff;
   color: #4a2c1a;
-  border-top: 6px solid #e8702a;
-  border-radius: 8px;
+  border-top: 7px solid #e8702a;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(74, 44, 26, 0.12);
+
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 18px;
 }
 
+/* Main Heading */
 .login-box h1 {
   margin: 0;
-  font-size: 24px;
+  font-size: 28px;
+  font-weight: 700;
   color: #c2410c;
+  text-align: center;
 }
 
+/* Form Heading */
 .login-box h2 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: normal;
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
   color: #4a2c1a;
+  text-align: center;
 }
 
+/* Input Fields and Dropdown */
 .login-box input,
-.login-box button {
-  padding: 8px;
-}
-
-.login-box input {
+.login-box select {
+  width: 100%;
+  padding: 14px 15px;
+  box-sizing: border-box;
   border: 1px solid #e8b88a;
+  border-radius: 7px;
   background: #fffaf5;
   color: #4a2c1a;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.login-box button {
+.login-box input:focus,
+.login-box select:focus {
+  border-color: #e8702a;
+  box-shadow: 0 0 0 3px rgba(232, 112, 42, 0.13);
+}
+
+/* Main Submit Button */
+.login-box button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  margin-top: 5px;
   background: #e8702a;
   color: white;
   border: none;
+  border-radius: 7px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
 }
 
-.login-box button:hover {
+.login-box button[type="submit"]:hover {
   background: #c2410c;
+  transform: translateY(-1px);
+}
+
+/* Error and Success Messages */
+.error,
+.success {
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
 }
 
 .error {
   color: #b91c1c;
-  margin: 0;
-}
-.login-box select {
-  padding: 8px;
-  border: 1px solid #e8b88a;
-  background: #fffaf5;
-  color: #4a2c1a;
-}
-.success {
-  color: #15803d;
-  margin: 0;
 }
 
+.success {
+  color: #15803d;
+}
+
+/* Switch Between Login and Sign-up */
 .switch {
-  margin: 0;
+  margin: 5px 0 0;
   font-size: 14px;
   text-align: center;
+  color: #4a2c1a;
 }
 
 .login-box button.link {
   background: none;
   color: #c2410c;
   padding: 0;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
   text-decoration: underline;
+  cursor: pointer;
+}
+
+.login-box button.link:hover {
+  color: #e8702a;
+}
+
+/* Smaller Screens */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 28px 22px;
+  }
+
+  .login-box h1 {
+    font-size: 24px;
+  }
+
+  .login-box h2 {
+    font-size: 18px;
+  }
 }

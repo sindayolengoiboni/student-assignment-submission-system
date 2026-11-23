@@ -1,78 +1,115 @@
+
+/* Lecturer Dashboard */
 .lecturer-dashboard {
-  max-width: 800px;
-  margin: 30px auto;
-  padding: 20px;
+  width: min(100% - 40px, 1050px);
+  margin: 35px auto;
+  padding: 30px;
+  box-sizing: border-box;
   font-family: Arial, sans-serif;
-  background-color: #fdfcfb;
+  color: #4a2c1a;
+  background-color: #fff1e0;
+  border-radius: 14px;
 }
 
+/* Dashboard Heading */
 .dashboard-header {
   text-align: center;
-  color: #e67e22;
-  margin-bottom: 25px;
+  color: #c2410c;
+  margin-bottom: 35px;
+  font-size: 32px;
+  font-weight: 700;
 }
 
+/* Form and Submissions Cards */
 .form-container,
 .submissions-container {
   background: #ffffff;
-  padding: 24px;
-  border: 1px solid #e6e6e6;
-  border-radius: 8px;
-  margin-bottom: 24px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  padding: 30px;
+  border: 1px solid #f2c49e;
+  border-radius: 12px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 14px rgba(74, 44, 26, 0.07);
 }
 
+/* Card Headings */
 .form-container h2,
 .submissions-container h2 {
-  color: #e67e22;
+  color: #c2410c;
   margin-top: 0;
-  margin-bottom: 16px;
+  margin-bottom: 22px;
+  font-size: 25px;
+  font-weight: 700;
 }
 
+/* Form Fields */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 6px;
-  font-weight: bold;
-  color: #333;
+  margin-bottom: 9px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #4a2c1a;
 }
 
 .form-group input,
 .form-group textarea {
+  display: block;
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 13px 15px;
+  border: 1px solid #e8b88a;
+  border-radius: 7px;
   box-sizing: border-box;
   font-family: inherit;
+  font-size: 15px;
+  color: #4a2c1a;
+  background: #fffaf5;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group textarea {
+  min-height: 110px;
+  resize: vertical;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #e67e22;
+  border-color: #e8702a;
+  box-shadow: 0 0 0 3px rgba(232, 112, 42, 0.13);
 }
 
+/* File Input */
+.form-group input[type="file"] {
+  background: #fffaf5;
+  padding: 12px;
+}
+
+/* Publish Assignment Button */
 .submit-btn {
-  background-color: #e67e22;
+  background-color: #e8702a;
   color: #ffffff;
-  padding: 10px 18px;
+  padding: 13px 24px;
   border: none;
-  border-radius: 4px;
-  font-weight: bold;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
 }
 
 .submit-btn:hover {
-  background-color: #cf6d17;
+  background-color: #c2410c;
+  transform: translateY(-1px);
 }
 
+/* Assignment and Submission Items */
 .submission-item {
-  border-bottom: 1px solid #eee;
-  padding: 12px 0;
+  border-bottom: 1px solid #f0dfd0;
+  padding: 18px 0;
+  line-height: 1.6;
 }
 
 .submission-item:last-child {
@@ -80,6 +117,44 @@
 }
 
 .assignment-desc {
-  margin: 6px 0 0;
-  color: #555;
+  margin: 8px 0 0;
+  color: #765b49;
+  line-height: 1.6;
+}
+
+/* Links */
+.lecturer-dashboard a {
+  color: #c2410c;
+  font-weight: 500;
+}
+
+.lecturer-dashboard a:hover {
+  color: #e8702a;
+}
+
+/* Responsive Layout */
+@media (max-width: 600px) {
+  .lecturer-dashboard {
+    width: calc(100% - 20px);
+    margin: 15px auto;
+    padding: 18px;
+  }
+
+  .dashboard-header {
+    font-size: 26px;
+  }
+
+  .form-container,
+  .submissions-container {
+    padding: 20px;
+  }
+
+  .form-container h2,
+  .submissions-container h2 {
+    font-size: 21px;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
 }

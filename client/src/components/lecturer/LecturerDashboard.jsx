@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import CreateAssignmentForm from './CreateAssignmentForm';
 import ViewSubmissions from './ViewSubmissions';
@@ -16,64 +17,100 @@ const LecturerDashboard = ({ user }) => {
       try {
         const query = user?.id ? `?lecturer_id=${user.id}` : '';
         const res = await fetch(`${API}/api/assignments${query}`);
-        if (!res.ok) return;
+
+        if (!res.ok) {
+          throw new Error('Could not load assignments.');
+        }
+
         const data = await res.json();
+
         if (isMounted && Array.isArray(data)) {
           setAssignments(data);
           setStatusNote('');
         }
-      } catch {
-        // Backend assignments route not added yet; keep local assignments
+      } catch (error) {
+        if (isMounted) {
+          setStatusNote(error.message);
+        }
       }
     }
 
     loadAssignments();
+
     return () => {
       isMounted = false;
     };
   }, [user?.id]);
 
-  const handleAddAssignment = async (newAssignment) => {
-    try {
-      const res = await fetch(`${API}/api/assignments`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...newAssignment,
-          lecturer_id: user?.id ?? null,
-        }),
-      });
+  const handleAddAssignment = async (formData) => {
+    formData.append('lecturer_id', user?.id ?? '');
 
-      if (res.ok) {
-        const saved = await res.json();
-        setAssignments((prev) => [...prev, saved.assignment || saved || newAssignment]);
-        setStatusNote('Saved to database.');
-        return;
-      }
-    } catch {
-      // Fall back to local state until backend route is live
+    const res = await fetch(`${API}/api/assignments`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || 'Failed to publish assignment.');
     }
 
-    setAssignments((prev) => [...prev, newAssignment]);
-    setStatusNote('Showing locally (backend /api/assignments not connected yet).');
+    setAssignments((prev) => [
+      data.assignment,
+      ...prev,
+    ]);
+
+    setStatusNote('Assignment saved successfully.');
   };
 
   return (
     <div className="lecturer-dashboard">
       <h1 className="dashboard-header">Lecturer Dashboard</h1>
+
       <CreateAssignmentForm onAddAssignment={handleAddAssignment} />
 
       <div className="submissions-container">
         <h2>Created Assignments ({assignments.length})</h2>
-        {statusNote && <p className="assignment-desc">{statusNote}</p>}
+
+        {statusNote && (
+          <p className="assignment-desc">{statusNote}</p>
+        )}
+
         {assignments.length === 0 ? (
           <p>No assignments created yet.</p>
         ) : (
           <div className="submissions-list">
             {assignments.map((item) => (
               <div key={item.id} className="submission-item">
-                <strong>{item.title}</strong> — <small>Due: {item.deadline}</small>
-                {item.description && <p className="assignment-desc">{item.description}</p>}
+                <strong>{item.title}</strong>
+                <p>
+                  Due: {item.deadline
+                    ? new Date(item.deadline).toLocaleDateString()
+                    : 'Not specified'}
+                </p>
+
+                {item.description && (
+                  <p className="assignment-desc">{item.description}</p>
+                )}
+
+                {item.assignment_file_name && (
+                  <p>
+                    Attached file: {item.assignment_file_name}
+                    {' | '}
+                    <a
+                      href={`${API}${item.file_url}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      View
+                    </a>
+                    {' | '}
+                    <a href={`${API}${item.download_url}`}>
+                      Download
+                    </a>
+                  </p>
+                )}
               </div>
             ))}
           </div>
